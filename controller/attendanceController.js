@@ -1,5 +1,5 @@
 import express from "express";
-import Attendance from "../model/AttendenceSchema.js";
+import Attendance from "../model/Attendance.js";
 import User from "../model/userSchema.js";
 
 // Date helpers
@@ -130,7 +130,7 @@ export const markAttendance = async (req, res) => {
         return res.status(500).json({ status: "error", message: "Failed to mark attendance", error: error.message });
     }
 };
-const getAttendance = async (req, res) => {
+export const getMonthlyAttendance = async (req, res) => {
     try {
         const userId = req.user._id;
         const userRole = req.user.role;
@@ -392,6 +392,6 @@ export const getTodayAttendanceSummary = async (req, res) => {
     }
 };
 
-export default getAttendance;
+export const getAttendance = getMonthlyAttendance;
 
 

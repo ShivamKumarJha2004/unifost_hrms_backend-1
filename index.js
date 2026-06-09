@@ -6,7 +6,9 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import leaveRoutes from "./routes/leaveRoutes.js";
 import hrRouter from "./routes/hrRoutes.js";
 import announcementRoutes from "./routes/announcementRoutes.js";
-
+import attendanceRoutes from "./routes/attendanceRoutes.js";
+import kraRoutes from "./routes/kraManagementRoutes.js";
+import salaryRoutes from "./routes/salaryRoutes.js";
 
 import cors from "cors";
 
@@ -42,7 +44,9 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/hr", hrRouter);
 app.use("/api/announcement", announcementRoutes);
-
+app.use("/api/attendance", attendanceRoutes);
+app.use("/api/kra", kraRoutes);
+app.use("/api/salary", salaryRoutes);
 
 app.get('/', (req, res) => {
 	res.send("Hello World by hrms backend Brishbhan Singh Bhadoriya ");

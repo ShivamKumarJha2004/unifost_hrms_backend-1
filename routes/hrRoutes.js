@@ -1,8 +1,8 @@
 import express from "express";
 import { authenticateToken } from "../middleware/auth.js";
 import { getEmployeebypagination } from "../controller/employeeController.js";
-import getAttendance, { markAttendance, updateAttendance, deleteAttendance, markBulkAttendance, getTodayAttendanceSummary } from "../controller/attendanceController.js";
-import { createAnnouncement, getAnnouncement, getEmployee, getEmployeeById, getHrDashboardWithAttendance } from "../controller/hrController.js"
+import { getAttendance, markAttendance, updateAttendance, deleteAttendance, markBulkAttendance, getTodayAttendanceSummary } from "../controller/attendanceController.js";
+import { createAnnouncement, getAnnouncement, getEmployee, getEmployeeById, getHrDashboardWithAttendance, updateEmployeeSalary } from "../controller/hrController.js"
 import { getUpcomingLeave, deleteEmployee } from "../controller/hrController.js"
 import { getforgetPasswordRequest, editPassword } from "../controller/hrController.js"
 
@@ -23,6 +23,7 @@ hrRouter.post('/createAnnouncement', authenticateToken, createAnnouncement)
 hrRouter.get('/getAnnouncement', authenticateToken, getAnnouncement)
 hrRouter.get('/getTodayAttendanceSummary', authenticateToken, getTodayAttendanceSummary)
 hrRouter.delete('/deleteEmployee/:id', authenticateToken, deleteEmployee)
+hrRouter.put("/employee-salary/:employeeId", authenticateToken, updateEmployeeSalary);
 hrRouter.get("/getforgetPasswordRequest", authenticateToken, getforgetPasswordRequest);
 hrRouter.put("/reset-password", authenticateToken, editPassword)
 

@@ -1,5 +1,5 @@
 import User from "../model/userSchema.js";
-import Attendance from "../model/AttendenceSchema.js";
+import Attendance from "../model/Attendance.js";
 import EmployeeLeave from "../model/EmployeeLeaveSchema.js";
 import Announcement from "../model/AnnouncementSchema.js";
 import ForgetPasswordRequest from "../model/ForgetPasswordRequest.js"
@@ -9,16 +9,74 @@ import bcrypt from "bcrypt";
 
 
 export const getEmployee = async (req, res) => {
-  const employees = await User.find({}, { _id: 1, name: 1 });
+  try {
+    const employees = await User.find({}, { 
+      _id: 1, 
+      name: 1, 
+      employeeId: 1, 
+      designation: 1, 
+      department: 1 
+    });
 
-  console.log(employees);
-  res.status(200).json({
-    success: true,
-    employees,
-    message: "employee data fetched successfully"
-
-  })
+    res.status(200).json({
+      success: true,
+      employees,
+      message: "employee data fetched successfully"
+    });
+  } catch (error) {
+    console.error("getEmployee error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch employees",
+      error: error.message
+    });
+  }
 }
+
+export const updateEmployeeSalary = async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+    const { basic, hra, specialAllowance, pfContribution } = req.body;
+
+    const totalMonthly = (Number(basic) || 0) + (Number(hra) || 0) + (Number(specialAllowance) || 0);
+    const totalAnnual = totalMonthly * 12;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      employeeId,
+      {
+        $set: {
+          "salary.basic": basic,
+          "salary.hra": hra,
+          "salary.specialAllowance": specialAllowance,
+          "salary.pfContribution": pfContribution,
+          "salary.totalMonthly": totalMonthly,
+          "salary.totalAnnual": totalAnnual
+        }
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "Employee not found"
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Salary structure updated successfully",
+      salary: updatedUser.salary
+    });
+  } catch (error) {
+    console.error("updateEmployeeSalary error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update salary structure",
+      error: error.message
+    });
+  }
+};
 export const getEmployeeById = async (req, res) => {
   try {
     const id = req.params.id;

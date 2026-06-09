@@ -95,7 +95,13 @@ const UserSchema = new mongoose.Schema({
         totalMonthly: { type: Number, default: 0 },             // Total monthly salary
         totalAnnual: { type: Number, default: 0 }               // Annual CTC
     },
-    
+
+    kraLimits: {
+        calls: { type: Number, default: 250 },
+        talktime: { type: Number, default: 150 }, // in minutes
+        sales: { type: Number, default: 1 }
+    },
+
     documents:{
         adharNumber:{type:String,default:""},
         panNumber:{type:String,default:""},

@@ -1,4 +1,4 @@
-import Attendance from "../model/AttendenceSchema.js";
+import Attendance from "../model/Attendance.js";
 import ForgetPasswordRequest from "../model/ForgetPasswordRequest.js";
 import User from "../model/userSchema.js";
 const documentImageUploader = {

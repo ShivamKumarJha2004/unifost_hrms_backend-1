@@ -17,6 +17,7 @@ router.post("/login",enforceLoginRestrictions, login);
 // Protected routes (require authentication)
 router.post("/logout", authenticateToken, logout);
 router.get("/profile", authenticateToken, getUserProfile);
+router.put("/profile/update", authenticateToken, updateEmployee);
 router.put("/employee/:id", authenticateToken, updateEmployee);
 router.get("/getEmployeesbypagination", authenticateToken, getEmployeebypagination);
 router.get("/getDashboard", authenticateToken, getDashboardData);

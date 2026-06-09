@@ -2,7 +2,7 @@ import User from "../model/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import Attendance from "../model/AttendenceSchema.js";
+import Attendance from "../model/Attendance.js";
 import moment from "moment-timezone";
 dotenv.config();
 
